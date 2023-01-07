@@ -28,8 +28,15 @@
                                     {{ $task->name }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('tasks.edit', $task) }}"
-                                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <x-link href="{{ route('tasks.edit', $task) }}">Edit</x-link>
+
+                                    <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-jet-danger-button type="submit" onclick="return confirm('Are You Sure Delete Task?')">
+                                            Delete
+                                        </x-jet-danger-button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
