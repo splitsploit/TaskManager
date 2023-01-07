@@ -27,6 +27,8 @@ class TaskController extends Controller
      */
     public function create()
     {
+        $this->authorize('manage tasks');
+
         return view('tasks.create');
     }
 
@@ -38,6 +40,8 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
+        $this->authorize('manage tasks');
+
         Task::create($request->validated());
 
         return redirect()->route('tasks.index');
@@ -62,6 +66,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        $this->authorize('manage tasks');
+
         return view('tasks.edit', compact('task'));
     }
 
@@ -74,6 +80,8 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        $this->authorize('manage-tasks');
+
         $task->update($request->validated());
 
         return redirect()->route('tasks.index');
@@ -87,6 +95,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $this->authorize('manage tasks');
+
         $task->delete();
 
         return redirect()->route('tasks.index');
